@@ -13,12 +13,14 @@ type OwnProps = {
   style?: StyleProp<ViewStyle>
   count?: number
   iconName: string
+  removeYoSelf?: boolean
 }
 
 type Props = OwnProps
 
 type State = {
   count: number
+  removed: boolean
 }
 
 const INITAL_COUNT_CONTAINER_TRANSLATE = -110
@@ -36,7 +38,8 @@ class SelectableOptionItem extends Component<Props, State> {
     countTextOpacity: new Animated.Value(
       this.props.count ? 1 : INITIAL_COUNT_TEXT_OPACITY
     ),
-    countScale: new Animated.Value(INITIAL_COUNT_SCALE)
+    countScale: new Animated.Value(INITIAL_COUNT_SCALE),
+    removed: false
   }
 
   componentDidMount() {
@@ -116,7 +119,11 @@ class SelectableOptionItem extends Component<Props, State> {
       this.animateDecrement().start()
     }
 
-    this.setState({ count: Math.max(0, this.state.count - 1) })
+    if (this.props.removeYoSelf && this.state.count - 1 === 0) {
+      this.setState({ removed: true })
+    } else {
+      this.setState({ count: Math.max(0, this.state.count - 1) })
+    }
   }
 
   render() {
@@ -124,7 +131,8 @@ class SelectableOptionItem extends Component<Props, State> {
       count,
       countContainerTranslateX,
       countTextOpacity,
-      countScale
+      countScale,
+      removed
     } = this.state
     const { title, iconName, price, style = {} } = this.props
 
@@ -140,6 +148,8 @@ class SelectableOptionItem extends Component<Props, State> {
     })
 
     const opacity = countTextOpacity
+
+    if (removed) return null
 
     return (
       <CardContainer style={[style, { height: 140 }]}>

@@ -52,6 +52,7 @@ class CheckoutScreen extends Component<Props> {
               title={item.title}
               style={{ marginTop: 16 }}
               count={item.count}
+              removeYoSelf
             />
           ))}
         </ScrollView>
