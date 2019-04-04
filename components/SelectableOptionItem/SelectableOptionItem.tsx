@@ -31,10 +31,18 @@ class SelectableOptionItem extends Component<Props, State> {
   state = {
     count: this.props.count || 0,
     countContainerTranslateX: new Animated.Value(
-      INITAL_COUNT_CONTAINER_TRANSLATE
+      this.props.count ? COUNT_TRANSLATE : INITAL_COUNT_CONTAINER_TRANSLATE
     ),
-    countTextOpacity: new Animated.Value(INITIAL_COUNT_TEXT_OPACITY),
+    countTextOpacity: new Animated.Value(
+      this.props.count ? 1 : INITIAL_COUNT_TEXT_OPACITY
+    ),
     countScale: new Animated.Value(INITIAL_COUNT_SCALE)
+  }
+
+  componentDidMount() {
+    if (this.props.count) {
+      // this.setState({ countTextOpacity: new Animated.Value(1) })
+    }
   }
 
   animateInCountContainer = () =>
@@ -158,7 +166,11 @@ class SelectableOptionItem extends Component<Props, State> {
           </View>
           <View style={{ justifyContent: 'space-around', height: '100%' }}>
             <AmountButton onPress={this.increment} iconName="md-add" />
-            <AmountButton onPress={this.decrement} iconName="md-remove" />
+            <AmountButton
+              onPress={this.decrement}
+              iconName="md-remove"
+              disabled={count === 0}
+            />
           </View>
         </View>
       </CardContainer>

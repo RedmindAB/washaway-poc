@@ -8,6 +8,7 @@ import colors from '../../../util/colors'
 type OwnProps = {
   onPress: () => void
   iconName: string
+  disabled?: boolean
 }
 
 type Props = OwnProps
@@ -17,10 +18,10 @@ const BUTTON_RADIUS = BUTTON_SIZE / 2
 
 class AmountButton extends Component<Props> {
   render() {
-    const { onPress, iconName } = this.props
+    const { onPress, iconName, disabled } = this.props
 
     return (
-      <TouchableOpacity onPress={onPress}>
+      <TouchableOpacity disabled={disabled} onPress={onPress}>
         <View
           style={{
             height: BUTTON_SIZE,
@@ -28,13 +29,16 @@ class AmountButton extends Component<Props> {
             borderRadius: BUTTON_RADIUS,
             justifyContent: 'center',
             alignItems: 'center',
-            position: 'relative'
+            position: 'relative',
+            ...(disabled && {
+              opacity: 0.8
+            })
           }}
         >
           <View
             style={{
               flex: 1,
-              backgroundColor: colors.indicator,
+              backgroundColor: disabled ? '#ddd' : colors.indicator,
               height: BUTTON_SIZE,
               width: BUTTON_SIZE,
               borderRadius: BUTTON_RADIUS,

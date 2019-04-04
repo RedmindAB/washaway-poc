@@ -5,6 +5,8 @@ import RegularCleaningScreen from '../screens/RegularCleaningScreen'
 import colors from '../util/colors'
 import DryCleaningScreen from '../screens/DryCleaningScreen'
 import CheckoutScreen from '../screens/CheckoutScreen'
+// @ts-ignore
+import { fromRight } from 'react-navigation-transitions'
 
 const MainStack = createStackNavigator(
   {
@@ -14,7 +16,7 @@ const MainStack = createStackNavigator(
     Checkout: CheckoutScreen
   },
   {
-    initialRouteName: 'DryCleaning',
+    initialRouteName: 'Home',
     defaultNavigationOptions: {
       headerTintColor: 'white',
       headerStyle: {
@@ -23,7 +25,8 @@ const MainStack = createStackNavigator(
     },
     cardStyle: {
       backgroundColor: colors.background
-    }
+    },
+    transitionConfig: () => fromRight()
   }
 )
 
