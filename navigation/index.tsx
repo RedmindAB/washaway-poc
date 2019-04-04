@@ -14,7 +14,7 @@ const MainStack = createStackNavigator(
     Checkout: CheckoutScreen
   },
   {
-    initialRouteName: 'Home',
+    initialRouteName: 'DryCleaning',
     defaultNavigationOptions: {
       headerTintColor: 'white',
       headerStyle: {

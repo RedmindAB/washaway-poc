@@ -10,6 +10,7 @@ interface IStyles {
 }
 
 const COUNT_BACKGROUND_SIZE = 110
+export const COUNT_TRANSLATE = -COUNT_BACKGROUND_SIZE / 2
 
 const styles = StyleSheet.create<IStyles>({
   container: {
@@ -29,11 +30,6 @@ const styles = StyleSheet.create<IStyles>({
     backgroundColor: colors.indicatorTransparent,
     width: COUNT_BACKGROUND_SIZE,
     height: COUNT_BACKGROUND_SIZE,
-    transform: [
-      { translateX: -COUNT_BACKGROUND_SIZE / 2 },
-      { translateY: -COUNT_BACKGROUND_SIZE / 2 },
-      { rotate: '45deg' }
-    ],
     position: 'absolute',
     top: -2,
     left: -16
